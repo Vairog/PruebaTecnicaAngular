@@ -1,0 +1,38 @@
+<mat-toolbar>
+  <span>Registration</span>
+</mat-toolbar>
+<mat-card class="my-card">
+   <mat-card-content>
+      <form class="my-form" [formGroup]="addForm" >
+        <mat-form-field class="middle-width">
+          <mat-label>Name</mat-label>
+          <input  matInput  placeholder="Ex. SpiderPork"  name="name"  required formControlName="name" [(ngModel)] = "Hero.name">
+          <mat-error *ngIf="this.addForm.get('name')?.touched && this.addForm.get('name')?.hasError('required')">
+            Name is required</mat-error>
+       </mat-form-field>
+       <mat-form-field class="middle-width">
+          <mat-label>Race</mat-label>
+          <input  matInput  placeholder="Ex. Human" name="race"  required formControlName="race" [(ngModel)] = "Hero.race">
+          <mat-error *ngIf="this.addForm.get('race')?.touched && this.addForm.get('race')?.hasError('required')">
+            Race is required</mat-error>
+       </mat-form-field>
+       <mat-form-field class="full-width">
+          <mat-label>Alignment</mat-label>
+          <input  matInput  placeholder="Ex. Neutral" name="alignment"  required formControlName="alignment" [(ngModel)] = "Hero.alignment">
+          <mat-error *ngIf="this.addForm.get('alignment')?.touched && this.addForm.get('alignment')?.hasError('required')">
+            Alignment is required</mat-error>
+       </mat-form-field>
+       <mat-form-field class="full-width">
+          <mat-label>Combat</mat-label>
+          <input  matInput  placeholder="Ex. 68" name="combat" [(ngModel)] = "Hero.combat">
+       </mat-form-field>
+       <mat-form-field class="full-width">
+          <mat-label>Occupation</mat-label>
+          <input  matInput  placeholder="Ex. Programmer"  name="occupation" [(ngModel)] = "Hero.occupation">
+       </mat-form-field>
+      </form>
+   </mat-card-content>
+   <mat-card-actions>
+    <button mat-raised-button  color="primary" (click)="addHero()" [disabled]="!addForm.valid">Add Hero</button>
+  </mat-card-actions>
+</mat-card>
