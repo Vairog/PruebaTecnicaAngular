@@ -38,6 +38,6 @@ export class AddHeroComponent {
       alignment: this.Hero.alignment,
       combat: this.Hero.combat,
       occupation: this.Hero.occupation
-    };
+    };  
   }
 }

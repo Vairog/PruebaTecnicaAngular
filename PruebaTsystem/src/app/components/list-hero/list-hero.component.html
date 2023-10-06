@@ -13,7 +13,7 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!-- Checkbox Column -->
-  <ng-container matColumnDef="select">
+  <ng-container matColumnDef="select" id="checkbox">
     <mat-header-cell *matHeaderCellDef>
       <mat-checkbox (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
