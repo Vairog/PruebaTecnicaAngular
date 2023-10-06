@@ -38,7 +38,9 @@ export class ListHeroComponent {
     this.router.navigateByUrl('/add')
   }
 
-  editHero(){
+  editHero(hero: Hero): void {
+    this.heroService.sendHero(hero);
+    this.router.navigateByUrl('/heroDetails');
   }
 
   isAllSelected() {

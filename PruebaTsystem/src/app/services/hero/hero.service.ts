@@ -24,6 +24,8 @@ export class HeroService{
       id: 5, name: "Black Widow", race: "Human", combat: '80', occupation: "Spy/Assassin"}
   ];
 
+  public sendedHero: any;
+
   constructor() {  
   }
 
@@ -39,10 +41,20 @@ export class HeroService{
     this.heroes.push(hero);
   }
 
-  deleteHero(id: number): void {
-    this.heroes.slice(id);
-    console.log("this.heroes",this.heroes);
+  editHero(hero: Hero): void {
+    let indexToUpdate = this.heroes.findIndex((EditedHero) => EditedHero.id === hero.id);
+    this.heroes[indexToUpdate + 1] = hero;
+    console.log('indexHero',this.heroes[indexToUpdate]);
+    console.log('index',indexToUpdate);
+    console.log('heroes', this.heroes);
   }
 
+  
+  deleteHero(id: number): void {
+    this.heroes.slice(id);
+  }
 
+  sendHero(hero: Hero): void {
+    this.sendedHero = hero;
+  }
 }

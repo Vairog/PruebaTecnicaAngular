@@ -1,1 +1,36 @@
-<p>details-hero works!</p>
+<mat-toolbar>
+    <span>Hero Details</span>
+  </mat-toolbar>
+  <mat-card class="my-card">
+     <mat-card-content>
+        <form class="my-form" [formGroup]="addForm">
+          <mat-form-field class="middle-width">
+            <mat-label>Name</mat-label>
+            <input  matInput  placeholder="Ex. SpiderPork"  name="name"  required formControlName="name" [(ngModel)] = "name">
+            <mat-error *ngIf="this.addForm.get('name')?.touched && this.addForm.get('name')?.hasError('required')">
+              Name is required</mat-error>
+         </mat-form-field>
+         <mat-form-field class="middle-width">
+            <mat-label>Race</mat-label>
+            <input  matInput  placeholder="Ex. Human" name="race"  required formControlName="race" [(ngModel)] = "race">
+            <mat-error *ngIf="this.addForm.get('race')?.touched && this.addForm.get('race')?.hasError('required')">
+              Race is required</mat-error>
+         </mat-form-field>
+         <mat-form-field class="full-width">
+            <mat-label>Combat</mat-label>
+            <input  matInput  placeholder="Ex. 68" name="combat" formControlName="combat" [(ngModel)] = "combat">
+            <mat-error *ngIf="this.addForm.get('name')?.touched && this.addForm.get('name')?.hasError('required')">
+              Combat is required</mat-error>
+          </mat-form-field>
+         <mat-form-field class="full-width">
+            <mat-label>Occupation</mat-label>
+            <input  matInput  placeholder="Ex. Programmer"  name="occupation" formControlName="occupation" [(ngModel)] = "occupation">
+            <mat-error *ngIf="this.addForm.get('name')?.touched && this.addForm.get('name')?.hasError('required')">
+              Occupation is required</mat-error>
+          </mat-form-field>
+        </form>
+     </mat-card-content>
+     <mat-card-actions>
+      <button mat-raised-button  color="primary" (click)="editedHero()" [disabled]="!addForm.valid">Add Hero</button>
+    </mat-card-actions>
+  </mat-card>
