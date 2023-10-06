@@ -6,4 +6,8 @@ import { Injectable } from '@angular/core';
 export class DialogService {
 
   constructor() { }
+
+  confirm(message: string): boolean {
+    return window.confirm(message);
+  }
 }

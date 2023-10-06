@@ -5,6 +5,8 @@ import { Hero } from 'src/app/interfaces/hero';
 import { HeroService } from 'src/app/services/hero/hero.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-list-hero',
@@ -21,7 +23,7 @@ export class ListHeroComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatTable) table: MatTable<any>;
 
-  constructor(private heroService: HeroService, private router: Router){
+  constructor(private heroService: HeroService, private router: Router, private dialogService: DialogService){
   }
 
   ngAfterViewInit(): void {
@@ -50,17 +52,24 @@ export class ListHeroComponent {
   }
 
   removeSelectedRows() {
-    let index: number;
-    this.selection.selected.forEach((item:any) => {
+    const message = 'Are you sure you want to delete this item?';
+    if (this.dialogService.confirm(message)) {
+      // User confirmed the deletion, proceed with deletion logic
+      // Call your delete data function here
+      let index: number;
+      this.selection.selected.forEach((item:any) => {
       index = this.data.findIndex((d:any) => d === item);
       console.log(this.data.findIndex((d:any) => d === item));
       this.data.splice(index,1)
       this.heroService.deleteHero(index);
       this.dataSource = new MatTableDataSource<Hero>(this.data);
-    });
-    this.selection = new SelectionModel<Hero>(true, []);
-    console.log("this.data", this.data);
-    console.log(this.dataSource);
+      });
+      this.selection = new SelectionModel<Hero>(true, []);
+      console.log("this.data", this.data);
+      console.log(this.dataSource);
+    } else {
+      // User canceled the deletion
+    }
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
