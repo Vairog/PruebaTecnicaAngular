@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Hero } from 'src/app/interfaces/hero';
 import { HeroService } from 'src/app/services/hero/hero.service';
+import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,33 +12,22 @@ import { Router } from '@angular/router';
   templateUrl: 'list-hero.component.html'
 })
  
-export class ListHeroComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'race', 'alignment', 'combat', 'occupation', 'actions'];
-  data: any;
-  dataSource: any;
+export class ListHeroComponent {
+  displayedColumns: string[] = ['select', 'name', 'race', 'combat', 'occupation', 'actions'];
+  data = this.heroService.getHeroes();
+  dataSource = new MatTableDataSource<Hero>(this.data);
+  selection = new SelectionModel<Hero>(true, []);
+  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatTable) table: MatTable<any>;
 
   constructor(private heroService: HeroService, private router: Router){
   }
 
-  @ViewChild('paginatorPageSize') paginatorPageSize: MatPaginator;
-
-  ngOnInit() {
-    this.heroService.getAll().subscribe(res => {
-      // Use MatTableDataSource for paginator
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginatorPageSize;
-    });
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
 
-  retrieveHeroes(): void {
-   this.data = this.heroService.getAll()
-  .subscribe((data: any) => {
-    this.data = data;
-    console.log(this.data);
-    return data;
-  });
-  this.dataSource = new MatTableDataSource(this.data);
-  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -45,16 +35,35 @@ export class ListHeroComponent implements OnInit {
   }
 
   addHero(){
-    this.router.navigateByUrl('/add');
+    this.router.navigateByUrl('/add')
   }
 
-  onButtonClickDelete(hero: Hero){
-
+  editHero(){
   }
 
-  onButtonClickEdit(hero: Hero){
-    
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
 
+  removeSelectedRows() {
+    this.selection.selected.forEach((item:any) => {
+      let index: number = this.data.findIndex((d:any) => d === item);
+      console.log(this.data.findIndex((d:any) => d === item));
+      this.data.splice(index,1)
+      this.dataSource = new MatTableDataSource<Hero>(this.data);
+    });
+    this.selection = new SelectionModel<Hero>(true, []);
+    console.log(this.data);
+    console.log(this.dataSource);
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach((row: any) => this.selection.select(row));
+  }
 
 }

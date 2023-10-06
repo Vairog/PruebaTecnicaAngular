@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -39,6 +40,7 @@ import { HeroService } from './services/hero/hero.service';
     MatPaginatorModule,
     MatCardModule,
     MatToolbarModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule

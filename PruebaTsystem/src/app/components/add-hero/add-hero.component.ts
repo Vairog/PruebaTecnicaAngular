@@ -39,14 +39,5 @@ export class AddHeroComponent {
       combat: this.Hero.combat,
       occupation: this.Hero.occupation
     };
-
-    this.heroService.create(data).subscribe(
-      (data:any) => {
-        data
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   }
 }

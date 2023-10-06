@@ -1,43 +1,42 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Hero } from '../../interfaces/hero';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-e
 
-
-const baseUrl = 'https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api';
 
 @Injectable({ 
   providedIn: 'root'
 })
 
-export class HeroService {
+export class HeroService{
 
+  private heroes: Hero[] = [
+    {
+      id: 1, name: "Superman", race: "Kryptonian", combat: 95, occupation: "Superhero"},
+    {
+      id: 2, name: "Wonder Woman", race: "Amazonian", combat: 90, occupation: "Superhero"},
+    {
+      id: 3, name: "Spider-Man", race: "Human", combat: 75, occupation: "Superhero"},
+    {
+      id: 4, name: "Thor", race: "Asgardian", combat: 85, occupation: "God of Thunder"},
+    {
+      id: 5, name: "Black Widow", race: "Human", combat: 80, occupation: "Spy/Assassin"}
+  ];
 
-  constructor(private http: HttpClient) { }
+  data: Hero[] = [];
 
-  getAll(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(`${baseUrl}/all.json`);
+  constructor() {  
   }
 
-  get(id: any): Observable<Hero[]> {
-    return this.http.get<Hero[]>(`${baseUrl}/${id}`);
+  getHeroes() {
+    this.data = this.heroes;
+    return this.data;  
   }
 
-  create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
+  getHeroById(id: number): Hero | undefined {
+    return this.heroes.find(hero => hero.id === id);
   }
 
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
-  }
 
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
-  }
-
-  findByName(name: any): Observable<Hero[]> {
-    return this.http.get<Hero[]>(`${baseUrl}?name=${name}`);
-  }
 }
