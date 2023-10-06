@@ -48,14 +48,16 @@ export class ListHeroComponent {
   }
 
   removeSelectedRows() {
+    let index: number;
     this.selection.selected.forEach((item:any) => {
-      let index: number = this.data.findIndex((d:any) => d === item);
+      index = this.data.findIndex((d:any) => d === item);
       console.log(this.data.findIndex((d:any) => d === item));
       this.data.splice(index,1)
+      this.heroService.deleteHero(index);
       this.dataSource = new MatTableDataSource<Hero>(this.data);
     });
     this.selection = new SelectionModel<Hero>(true, []);
-    console.log(this.data);
+    console.log("this.data", this.data);
     console.log(this.dataSource);
   }
 

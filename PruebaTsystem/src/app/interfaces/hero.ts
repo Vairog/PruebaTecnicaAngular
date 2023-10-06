@@ -2,6 +2,6 @@ export interface Hero {
     id?: number;
     name: string;
     race: string;
-    combat : number
+    combat : string;
     occupation : string
     }

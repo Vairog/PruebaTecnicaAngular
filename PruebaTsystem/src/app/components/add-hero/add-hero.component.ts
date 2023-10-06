@@ -10,19 +10,18 @@ import { HeroService } from 'src/app/services/hero/hero.service';
   styleUrls: ['./add-hero.component.scss']
 })
 export class AddHeroComponent {
-  Hero: any = {
+  Hero: Hero = {
     name: '',
     race: '',
-    alignment: '',
-    combat: '',
-    occupation: ''
-  };
-
+    combat : '',
+    occupation : ''
+    }
 
   addForm: FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     race: new FormControl(null, [Validators.required]),
-    alignment: new FormControl(null, [Validators.required])
+    combat: new FormControl(null, [Validators.required]),
+    occupation: new FormControl(null, [Validators.required])
   });
 
   constructor(private heroService: HeroService, private router: Router){
@@ -32,12 +31,16 @@ export class AddHeroComponent {
     if (!this.addForm.valid) {
       return;
     }
-    const data = {
+     const data: Hero = {
       name: this.Hero.name,
       race: this.Hero.race,
-      alignment: this.Hero.alignment,
       combat: this.Hero.combat,
       occupation: this.Hero.occupation
-    };  
+    };
+
+    console.log(data);
+    
+    this.heroService.addHero(data);
+    this.router.navigateByUrl('/superheroe')
   }
 }

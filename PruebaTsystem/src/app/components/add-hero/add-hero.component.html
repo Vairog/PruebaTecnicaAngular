@@ -17,19 +17,17 @@
             Race is required</mat-error>
        </mat-form-field>
        <mat-form-field class="full-width">
-          <mat-label>Alignment</mat-label>
-          <input  matInput  placeholder="Ex. Neutral" name="alignment"  required formControlName="alignment" [(ngModel)] = "Hero.alignment">
-          <mat-error *ngIf="this.addForm.get('alignment')?.touched && this.addForm.get('alignment')?.hasError('required')">
-            Alignment is required</mat-error>
-       </mat-form-field>
-       <mat-form-field class="full-width">
           <mat-label>Combat</mat-label>
-          <input  matInput  placeholder="Ex. 68" name="combat" [(ngModel)] = "Hero.combat">
-       </mat-form-field>
+          <input  matInput  placeholder="Ex. 68" name="combat" formControlName="combat" [(ngModel)] = "Hero.combat">
+          <mat-error *ngIf="this.addForm.get('name')?.touched && this.addForm.get('name')?.hasError('required')">
+            Combat is required</mat-error>
+        </mat-form-field>
        <mat-form-field class="full-width">
           <mat-label>Occupation</mat-label>
-          <input  matInput  placeholder="Ex. Programmer"  name="occupation" [(ngModel)] = "Hero.occupation">
-       </mat-form-field>
+          <input  matInput  placeholder="Ex. Programmer"  name="occupation" formControlName="occupation" [(ngModel)] = "Hero.occupation">
+          <mat-error *ngIf="this.addForm.get('name')?.touched && this.addForm.get('name')?.hasError('required')">
+            Occupation is required</mat-error>
+        </mat-form-field>
       </form>
    </mat-card-content>
    <mat-card-actions>
